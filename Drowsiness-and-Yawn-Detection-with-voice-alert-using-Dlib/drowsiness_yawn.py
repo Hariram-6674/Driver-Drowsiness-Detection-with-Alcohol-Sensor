@@ -78,7 +78,7 @@ def lip_distance(shape):
 def check_alcohol():
     global alarm_status2
 
-    # Read alcohol sensor value using MCP3008
+    # Read alcohol sensor value 
     alcohol_level = adc.value
 
     print("Alcohol level:", alcohol_level)
