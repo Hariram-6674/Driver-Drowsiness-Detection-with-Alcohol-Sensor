@@ -7,12 +7,7 @@ import requests
 import pywhatkit
 from datetime import datetime,timedelta
 
-# Setup GPIO for buzzer
-#buzzer_pin = 24 
-#GPIO.setmode(GPIO.BCM)
-#GPIO.setup(buzzer_pin, GPIO.OUT)
 ser = serial.Serial('/dev/ttyACM0', 9600)
-# Setup serial connection for GPS
 
 # Function to read GPS data
 def read_gps():
@@ -29,7 +24,6 @@ def read_gps():
 		m = current_time.minute + 1
 		return lat,lng, h ,m
 
-# Main loop
 detected = False
 while True:
     line = ser.readline().decode('utf-8').strip()
@@ -37,7 +31,6 @@ while True:
     
     # Check alcohol level
     if int(line) > 55 and not detected:
-        #GPIO.output(buzzer_pin, GPIO.HIGH)
         print("Buzzer activated")
         
         # Read GPS coordinates and get location
@@ -45,11 +38,10 @@ while True:
 
         emer = f'High Alcohol level : http://maps.google.com/?q={latitude},{longitude}'
         # Send location via WhatsApp
-        pywhatkit.sendwhatmsg('+916363999471', emer ,h,m,32)
+        pywhatkit.sendwhatmsg('+91XXXXXXXX', emer ,h,m,32)
         
         detected = True
     elif int(line) <= 100 and detected:
-        #GPIO.output(buzzer_pin, GPIO.LOW)
         detected = False
 
     time.sleep(3)
