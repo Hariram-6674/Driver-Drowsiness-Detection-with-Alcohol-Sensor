@@ -1,5 +1,3 @@
-#python drowniness_yawn.py --webcam webcam_index
-
 from scipy.spatial import distance as dist
 from imutils.video import VideoStream
 from imutils import face_utils
@@ -33,16 +31,12 @@ def alarm(msg):
 
     while alarm_status:
         print('call')
-        #s = 'espeak "'+msg+'"'
         beep()
-        #os.system(s)
 
     if alarm_status2:
         print('call')
         saying = True
         beep()
-        #s = 'espeak "' + msg + '"'
-        #os.system(s)
         saying = False
 
 def eye_aspect_ratio(eye):
@@ -108,19 +102,16 @@ saying = False
 COUNTER = 0
 
 print("-> Loading the predictor and detector...")
-#detector = dlib.get_frontal_face_detector()
-detector = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")    #Faster but less accurate
+detector = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")  
 predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
 
 print("-> Starting Video Stream")
-#vs = VideoStream(src=args["webcam"]).start()
 picam2 = Picamera2()
 picam2.preview_configuration.main.size = (720,480)
 picam2.preview_configuration.main.format = "RGB888"
 picam2.preview_configuration.align()
 picam2.start()
-#vs= VideoStream(picam2).start()      # //For Raspberry Pi
 time.sleep(1.0)
 
 while True:
@@ -131,12 +122,10 @@ while True:
     frame = imutils.resize(frame, width=450)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    #rects = detector(gray, 0)
     rects = detector.detectMultiScale(gray, scaleFactor=1.1, 
 		minNeighbors=5, minSize=(30, 30),
 		flags=cv2.CASCADE_SCALE_IMAGE)
 
-    #for rect in rects:
     for (x, y, w, h) in rects:
         rect = dlib.rectangle(int(x), int(y), int(x + w),int(y + h))
         
