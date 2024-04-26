@@ -1,4 +1,4 @@
-##Downloading Facial Landmarks Embeddings
+## Downloading Facial Landmarks Embeddings
 
 To download the `shape_predictor_68_face_landmarks.dat` file, which is used for facial landmarks recognition, follow these steps:
 
